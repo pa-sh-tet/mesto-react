@@ -1,0 +1,12 @@
+.elements__item-image {
+  width: 282px;
+  height: 282px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  object-position: center;
+  object-fit: cover;
+}
+
+.elements__item-image:hover {
+  cursor: pointer;
+}
