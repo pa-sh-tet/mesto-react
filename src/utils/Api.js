@@ -38,7 +38,7 @@ class Api {
       method: "PATCH",
       body: JSON.stringify({
         name: data.name, 
-        about: data.description,
+        about: data.about,
       }),
     }).then(this._getResponse);
   }
@@ -81,12 +81,12 @@ class Api {
   }
 
   //Изменить аватар
-  patchAvatar( avatarLink ) {
+  patchAvatar(data) {
     return fetch(`${this._url}/users/me/avatar`, {
       headers: this._headers,
       method: "PATCH",
       body: JSON.stringify({
-        avatar: avatarLink
+        avatar: data.avatar
       })
     }).then(this._getResponse);
   }
