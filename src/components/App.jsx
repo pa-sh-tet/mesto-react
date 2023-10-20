@@ -11,11 +11,11 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 
 function App() {
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
-  const [isDeleteCardPopupOpen, setDeleteCardPopupOpen] = React.useState(false);
-  const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = React.useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
@@ -88,44 +88,41 @@ function App() {
 
   const handleCardDelete = (card) => {
     api.deleteCard(card._id)
-    .then((newCard) => {
-      const newCards = cards.filter((item) =>
-        item._id !== card._id ? newCard : ""
-      );
-      setCards(newCards);
-    })
+      .then(() => {
+        setCards((cards) => cards.filter(item => item._id !== card._id))
+      })
       .catch((error) => {
         console.log(error);
       });
   }
 
   const handleEditAvatarClick = () => {
-    setEditAvatarPopupOpen(true);
+    setIsEditAvatarPopupOpen(true);
   }
 
   const handleEditProfileClick = () => {
-    setEditProfilePopupOpen(true);
+    setIsEditProfilePopupOpen(true);
   }
 
   const handleAddPlaceClick = () => {
-    setAddPlacePopupOpen(true);
+    setIsAddPlacePopupOpen(true);
   }
 
   const handleDeleteCardClick = () => {
-    setDeleteCardPopupOpen(true);
+    setIsDeleteCardPopupOpen(true);
   }
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
-    setImagePopupOpen(true);
+    setIsImagePopupOpen(true);
   }
 
   const closeAllPopups = () => {
-    setEditAvatarPopupOpen(false);
-    setEditProfilePopupOpen(false);
-    setAddPlacePopupOpen(false);
-    setDeleteCardPopupOpen(false);
-    setImagePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsDeleteCardPopupOpen(false);
+    setIsImagePopupOpen(false);
   }
 
   return (
@@ -164,8 +161,7 @@ function App() {
         <ImagePopup
           isOpen={isImagePopupOpen}
           onClose={closeAllPopups}
-          selectedCard={selectedCard}>
-        </ImagePopup>
+          selectedCard={selectedCard} />
       </div>
     </CurrentUserContext.Provider>
   )
